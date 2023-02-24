@@ -39,7 +39,7 @@ const SitecorePage = ({ notFound, componentProps, layoutData }: SitecorePageProp
 
 // This function gets called at request time on server-side.
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const props = await sitecorePagePropsFactory.create(context, '/about');
+  const props = await sitecorePagePropsFactory.create(context, context.resolvedUrl);
 
   // Check if we have a redirect (e.g. custom error page)
   if (props.redirect) {
