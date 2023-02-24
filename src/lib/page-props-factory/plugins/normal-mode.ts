@@ -19,7 +19,8 @@ function extractPath(params: ParsedUrlQuery | undefined, rootPath?: string): str
 
   // Add root path
   if (rootPath) {
-    path = rootPath + (rootPath.endsWith('/') ? '' : '/') + path;
+    const rootPathStrippedQueryString = rootPath.split('?')[0];
+    path = rootPathStrippedQueryString + (rootPathStrippedQueryString.endsWith('/') ? '' : '/') + path;
   }
 
   // Ensure leading '/'
