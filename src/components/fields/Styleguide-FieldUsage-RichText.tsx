@@ -1,9 +1,8 @@
-import { RichText, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { RichText, Field } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from 'components/styleguide/Styleguide-Specimen';
-import { ComponentProps } from 'lib/component-props';
-import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
+import { StyleguideComponentProps, StyleguideSpecimenFields } from 'lib/component-props';
 
-type StyleguideFieldUsageRichTextProps = ComponentProps &
+type StyleguideFieldUsageRichTextProps = StyleguideComponentProps &
   StyleguideSpecimenFields & {
     fields: {
       sample: Field<string>;
@@ -30,6 +29,4 @@ const StyleguideFieldUsageRichText = (props: StyleguideFieldUsageRichTextProps):
   </StyleguideSpecimen>
 );
 
-export default withDatasourceCheck()<StyleguideFieldUsageRichTextProps>(
-  StyleguideFieldUsageRichText
-);
+export default StyleguideFieldUsageRichText;

@@ -1,4 +1,4 @@
-import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
+import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-manifest';
 import fs from 'fs';
 
 const query = fs.readFileSync(
@@ -11,10 +11,9 @@ const query = fs.readFileSync(
  * This function is invoked by convention (*.sitecore.js) when 'jss manifest' is run.
  * @param {Manifest} manifest Manifest instance to add components to
  */
-export default function GraphQLIntegratedDemo(manifest: Manifest): void {
+export default function (manifest: Manifest): void {
   manifest.addComponent({
     name: 'GraphQL-IntegratedDemo',
-    templateName: 'GraphQL-IntegratedDemo',
     icon: SitecoreIcon.GraphConnection_directed,
     graphQLQuery: query,
     fields: [

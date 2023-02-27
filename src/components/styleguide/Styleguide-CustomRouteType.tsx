@@ -1,10 +1,15 @@
 import Link from 'next/link';
 import { useSitecoreContext, Text, RichText, Field } from '@sitecore-jss/sitecore-jss-nextjs';
+import { StyleguideSitecoreContextValue } from 'lib/component-props';
 
-type StyleguideCustomRouteTypeFields = {
-  headline: Field<string>;
-  author: Field<string>;
-  content: Field<string>;
+type StyleguideCustomRouteTypeContext = StyleguideSitecoreContextValue & {
+  route: {
+    fields: {
+      headline: Field<string>;
+      author: Field<string>;
+      content: Field<string>;
+    };
+  };
 };
 
 const StyleguideCustomRouteType = (): JSX.Element => {
@@ -12,8 +17,11 @@ const StyleguideCustomRouteType = (): JSX.Element => {
   // see the context examples in the styleguide for more details.
   // this fancy destructure syntax is essentially equivalent to
   // const fields = props.sitecoreContext.route.fields
-  const value = useSitecoreContext();
-  const fields = value.sitecoreContext.route?.fields as StyleguideCustomRouteTypeFields;
+  const {
+    sitecoreContext: {
+      route: { fields },
+    },
+  } = useSitecoreContext<StyleguideCustomRouteTypeContext>();
 
   return (
     <div data-e2e-id="styleguide-customroutetype">

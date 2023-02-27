@@ -1,8 +1,7 @@
-import { Redirect } from 'next';
 import {
   DictionaryPhrases,
-  ComponentPropsCollection,
   LayoutServiceData,
+  ComponentPropsCollection,
 } from '@sitecore-jss/sitecore-jss-nextjs';
 
 /**
@@ -10,9 +9,8 @@ import {
  */
 export type SitecorePageProps = {
   locale: string;
+  layoutData: LayoutServiceData | null;
   dictionary: DictionaryPhrases;
   componentProps: ComponentPropsCollection;
   notFound: boolean;
-  layoutData: LayoutServiceData;
-  redirect?: Redirect;
 };

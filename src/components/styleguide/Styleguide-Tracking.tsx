@@ -1,18 +1,15 @@
 import React, { RefObject } from 'react';
-import {
-  withSitecoreContext,
-  trackingApi,
-  TrackingRequestOptions,
-} from '@sitecore-jss/sitecore-jss-nextjs';
+import { withSitecoreContext } from '@sitecore-jss/sitecore-jss-nextjs';
+import { trackingApi } from '@sitecore-jss/sitecore-jss-tracking';
 import { dataFetcher } from 'lib/data-fetcher';
 import config from 'temp/config';
 import StyleguideSpecimen from './Styleguide-Specimen';
-import { ComponentWithContextProps } from 'lib/component-props';
-import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
+import { TrackingRequestOptions } from '@sitecore-jss/sitecore-jss-tracking/types/trackingRequestOptions';
+import { StyleguideComponentWithContextProps, StyleguideSpecimenFields } from 'lib/component-props';
 
 /* eslint-disable no-alert,no-undef */
 
-type StyleguideTrackingProps = ComponentWithContextProps & StyleguideSpecimenFields;
+type StyleguideTrackingProps = StyleguideComponentWithContextProps & StyleguideSpecimenFields;
 
 /**
  * Demonstrates analytics tracking patterns (xDB)

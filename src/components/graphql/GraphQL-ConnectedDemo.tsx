@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Text,
   Link,
   GetServerSideComponentProps,
   GetStaticComponentProps,
-  constants,
+  useComponentProps,
+  JSS_MODE_DISCONNECTED,
   GraphQLRequestClient,
-  withDatasourceCheck,
-  resetEditorChromes,
 } from '@sitecore-jss/sitecore-jss-nextjs';
 import NextLink from 'next/link';
 import {
   ConnectedDemoQueryDocument,
-  AppRoute as AppRoute,
+  AppRoute,
   Item,
   GraphQlConnectedDemo as GrapQLConnectedDemoDatasource,
-} from './GraphQL-ConnectedDemo.dynamic.graphql';
-import { ComponentProps } from 'lib/component-props';
+} from './GraphQL-ConnectedDemo.graphql';
+import { StyleguideComponentProps } from 'lib/component-props';
 import config from 'temp/config';
 
 type RouteItem = AppRoute & Item;
@@ -26,12 +25,10 @@ type GraphQLConnectedDemoData = {
   contextItem: RouteItem;
 };
 
-type GraphQLConnectedDemoProps = ComponentProps & GraphQLConnectedDemoData;
-
-const GraphQLConnectedDemo = (props: GraphQLConnectedDemoProps): JSX.Element => {
-  useEffect(() => {
-    resetEditorChromes();
-  }, []);
+const GraphQLConnectedDemo = (props: StyleguideComponentProps): JSX.Element => {
+  const data = props.rendering.uid
+    ? useComponentProps<GraphQLConnectedDemoData>(props.rendering.uid)
+    : undefined;
 
   return (
     <div data-e2e-id="graphql-connected">
@@ -45,41 +42,41 @@ const GraphQLConnectedDemo = (props: GraphQLConnectedDemoProps): JSX.Element => 
         <code>getServerSideProps</code> execution.
       </p>
 
-      {props.datasource && (
+      {data && data.datasource && (
         <div>
           <h4>Datasource Item (via Connected GraphQL)</h4>
-          id: {props.datasource.id}
+          id: {data.datasource.id}
           <br />
-          name: {props.datasource.name}
+          name: {data.datasource.name}
           <br />
-          sample1: {props.datasource.sample1?.value}
+          sample1: {data.datasource.sample1?.value}
           <br />
-          sample1 (editable): <Text field={props.datasource.sample1?.jsonValue} />
+          sample1 (editable): <Text field={data.datasource.sample1?.jsonValue} />
           <br />
           sample2:
           <br />
           <ul>
-            <li>text: {props.datasource.sample2?.text}</li>
-            <li>url: {props.datasource.sample2?.url}</li>
-            <li>target: {props.datasource.sample2?.target}</li>
+            <li>text: {data.datasource.sample2?.text}</li>
+            <li>url: {data.datasource.sample2?.url}</li>
+            <li>target: {data.datasource.sample2?.target}</li>
             <li>
-              editable: <Link field={props.datasource.sample2?.jsonValue} />
+              editable: <Link field={data.datasource.sample2?.jsonValue} />
             </li>
-            <li>field type: {props.datasource.sample2?.definition?.type}</li>
-            <li>field is shared?: {props.datasource.sample2?.definition?.shared.toString()}</li>
+            <li>field type: {data.datasource.sample2?.definition?.type}</li>
+            <li>field is shared?: {data.datasource.sample2?.definition?.shared.toString()}</li>
           </ul>
         </div>
       )}
-      {props.contextItem && (
+      {data && data.contextItem && (
         <div>
           <h4>Route Item (via Connected GraphQL)</h4>
-          id: {props.contextItem.id}
+          id: {data.contextItem.id}
           <br />
-          page title: {props.contextItem.pageTitle?.value}
+          page title: {data.contextItem.pageTitle?.value}
           <br />
           children:
           <ul>
-            {props.contextItem.children.results.map((child) => {
+            {data.contextItem.children.results.map((child) => {
               const routeItem = child as RouteItem;
 
               return (
@@ -103,7 +100,7 @@ const GraphQLConnectedDemo = (props: GraphQLConnectedDemoProps): JSX.Element => 
  * @param {GetStaticPropsContext} context
  */
 export const getStaticProps: GetStaticComponentProps = async (rendering, layoutData) => {
-  if (process.env.JSS_MODE === constants.JSS_MODE.DISCONNECTED) {
+  if (process.env.JSS_MODE === JSS_MODE_DISCONNECTED) {
     return null;
   }
 
@@ -111,15 +108,11 @@ export const getStaticProps: GetStaticComponentProps = async (rendering, layoutD
     apiKey: config.sitecoreApiKey,
   });
 
-  const result = await graphQLClient.request<GraphQLConnectedDemoData>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ConnectedDemoQueryDocument as any,
-    {
-      datasource: rendering.dataSource,
-      contextItem: layoutData?.sitecore?.route?.itemId,
-      language: layoutData?.sitecore?.context?.language,
-    }
-  );
+  const result = await graphQLClient.request<GraphQLConnectedDemoData>(ConnectedDemoQueryDocument, {
+    datasource: rendering.dataSource,
+    contextItem: layoutData?.sitecore?.route?.itemId,
+    language: layoutData?.sitecore?.context?.language,
+  });
 
   return result;
 };
@@ -131,7 +124,7 @@ export const getStaticProps: GetStaticComponentProps = async (rendering, layoutD
  * @param {GetServerSidePropsContext} context
  */
 export const getServerSideProps: GetServerSideComponentProps = async (rendering, layoutData) => {
-  if (process.env.JSS_MODE === constants.JSS_MODE.DISCONNECTED) {
+  if (process.env.JSS_MODE === JSS_MODE_DISCONNECTED) {
     return null;
   }
 
@@ -139,17 +132,13 @@ export const getServerSideProps: GetServerSideComponentProps = async (rendering,
     apiKey: config.sitecoreApiKey,
   });
 
-  const result = await graphQLClient.request<GraphQLConnectedDemoData>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ConnectedDemoQueryDocument as any,
-    {
-      datasource: rendering.dataSource,
-      contextItem: layoutData?.sitecore?.route?.itemId,
-      language: layoutData?.sitecore?.context?.language,
-    }
-  );
+  const result = await graphQLClient.request<GraphQLConnectedDemoData>(ConnectedDemoQueryDocument, {
+    datasource: rendering.dataSource,
+    contextItem: layoutData?.sitecore?.route?.itemId,
+    language: layoutData?.sitecore?.context?.language,
+  });
 
   return result;
 };
 
-export default withDatasourceCheck()<ComponentProps>(GraphQLConnectedDemo);
+export default GraphQLConnectedDemo;

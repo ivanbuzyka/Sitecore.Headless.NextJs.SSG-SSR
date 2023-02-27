@@ -1,7 +1,7 @@
-import { Field, Placeholder, Text, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
-import { ComponentProps } from 'lib/component-props';
+import { Field, Placeholder, Text } from '@sitecore-jss/sitecore-jss-nextjs';
+import { StyleguideComponentProps } from 'lib/component-props';
 
-type StyleguideSectionProps = ComponentProps & {
+type StyleguideSectionProps = StyleguideComponentProps & {
   fields: {
     heading: Field<string>;
   };
@@ -19,4 +19,4 @@ const StyleguideSection = (props: StyleguideSectionProps): JSX.Element => (
   </div>
 );
 
-export default withDatasourceCheck()<StyleguideSectionProps>(StyleguideSection);
+export default StyleguideSection;

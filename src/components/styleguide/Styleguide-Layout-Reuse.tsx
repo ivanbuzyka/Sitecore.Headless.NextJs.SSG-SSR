@@ -1,9 +1,8 @@
 import { Placeholder } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from './Styleguide-Specimen';
-import { ComponentProps } from 'lib/component-props';
-import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
+import { StyleguideComponentProps, StyleguideSpecimenFields } from 'lib/component-props';
 
-type StyleguideLayoutReuseProps = ComponentProps & StyleguideSpecimenFields;
+type StyleguideLayoutReuseProps = StyleguideComponentProps & StyleguideSpecimenFields;
 
 /**
  * Demonstrates how to reuse content within JSS. See /data/routes/styleguide/en.yml

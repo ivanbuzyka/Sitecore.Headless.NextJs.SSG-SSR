@@ -6,8 +6,8 @@ interface ErrorPageProps {
 }
 
 /**
- * Rendered for 500 errors on both server and client. Used only in Production mode.
- * @link https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing
+ * Rendered in case if we have 500 error, used only in Production mode
+ * @link https://nextjs.org/docs/advanced-features/custom-error-page#customizing-the-error-page
  */
 const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => (
   <>
@@ -15,11 +15,8 @@ const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => (
       <title>Error</title>
     </Head>
     <div style={{ padding: 10 }}>
-      <h1>An error occurred</h1>
       <p>
-        {statusCode
-          ? `A server-side ${statusCode} error occurred.`
-          : 'A client-side error occurred.'}
+        {statusCode ? `An error ${statusCode} occurred on server` : 'An error occurred on client'}
       </p>
       <a href="/">Go to the Home page</a>
     </div>

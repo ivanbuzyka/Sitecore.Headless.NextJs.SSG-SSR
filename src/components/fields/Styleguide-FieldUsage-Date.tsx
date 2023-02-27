@@ -1,9 +1,8 @@
-import { DateField, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { DateField, Field } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from 'components/styleguide/Styleguide-Specimen';
-import { ComponentProps } from 'lib/component-props';
-import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
+import { StyleguideComponentProps, StyleguideSpecimenFields } from 'lib/component-props';
 
-type StyleguideFieldUsageDateProps = ComponentProps &
+type StyleguideFieldUsageDateProps = StyleguideComponentProps &
   StyleguideSpecimenFields & {
     fields: {
       date: Field<string>;
@@ -52,4 +51,4 @@ const StyleguideFieldUsageDate = (props: StyleguideFieldUsageDateProps): JSX.Ele
   );
 };
 
-export default withDatasourceCheck()<StyleguideFieldUsageDateProps>(StyleguideFieldUsageDate);
+export default StyleguideFieldUsageDate;

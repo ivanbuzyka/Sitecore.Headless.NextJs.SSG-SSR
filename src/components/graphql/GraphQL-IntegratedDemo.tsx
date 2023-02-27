@@ -1,8 +1,7 @@
-import { Text, Link, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
-import { ComponentProps } from 'lib/component-props';
+import { Text, Link } from '@sitecore-jss/sitecore-jss-nextjs';
 import NextLink from 'next/link';
 
-type DataSource = {
+interface DataSource {
   sample1: {
     jsonValue: {
       value: string;
@@ -29,9 +28,9 @@ type DataSource = {
   };
   name: string;
   id: string;
-};
+}
 
-type Item = {
+interface Item {
   id: string;
   url: {
     path: string;
@@ -42,13 +41,13 @@ type Item = {
       value: string;
     };
   };
-};
+}
 
-type ItemSearchResults = {
+interface ItemSearchResults {
   results: Item[];
-};
+}
 
-type GraphQlIntegratedDemoProps = ComponentProps & {
+interface GraphQlIntegratedDemoProps {
   fields: {
     data: {
       datasource: DataSource;
@@ -61,7 +60,7 @@ type GraphQlIntegratedDemoProps = ComponentProps & {
       };
     };
   };
-};
+}
 
 const GraphQLIntegratedDemo = (props: GraphQlIntegratedDemoProps): JSX.Element => {
   // Query results in integrated GraphQL replace the normal `fields` data
@@ -127,4 +126,4 @@ const GraphQLIntegratedDemo = (props: GraphQlIntegratedDemoProps): JSX.Element =
   );
 };
 
-export default withDatasourceCheck()<GraphQlIntegratedDemoProps>(GraphQLIntegratedDemo);
+export default GraphQLIntegratedDemo;

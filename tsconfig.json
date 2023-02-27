@@ -16,7 +16,6 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "strictFunctionTypes": false,
     "forceConsistentCasingInFileNames": true,
     "downlevelIteration": true,
     "noEmit": true,
@@ -27,14 +26,16 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"

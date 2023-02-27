@@ -1,11 +1,11 @@
-import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
+import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-manifest';
 
 /**
  * Adds the Styleguide-CustomRouteType component to the disconnected manifest.
  * This function is invoked by convention (*.sitecore.js) when 'jss manifest' is run.
  * @param {Manifest} manifest Manifest instance to add components to
  */
-export default function StyleguideCustomRouteType(manifest: Manifest): void {
+export default function (manifest: Manifest): void {
   // This registers the custom route type with the manifest.
   // Like a component, a route type contains data fields -
   // but unlike a component, the fields are shared at the route level,
@@ -25,7 +25,6 @@ export default function StyleguideCustomRouteType(manifest: Manifest): void {
   // This component will display the route level fields on the custom route type.
   manifest.addComponent({
     name: 'Styleguide-CustomRouteType',
-    templateName: 'Styleguide-CustomRouteType',
     icon: SitecoreIcon.DocumentTag,
   });
 }

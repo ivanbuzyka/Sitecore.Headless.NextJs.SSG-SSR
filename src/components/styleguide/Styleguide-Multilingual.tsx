@@ -1,11 +1,10 @@
-import { Text, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Text, Field } from '@sitecore-jss/sitecore-jss-nextjs';
 import Link from 'next/link';
 import { useI18n } from 'next-localization';
 import StyleguideSpecimen from './Styleguide-Specimen';
-import { ComponentWithContextProps } from 'lib/component-props';
-import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
+import { StyleguideComponentWithContextProps, StyleguideSpecimenFields } from 'lib/component-props';
 
-type StyleguideMultilingualProps = ComponentWithContextProps &
+type StyleguideMultilingualProps = StyleguideComponentWithContextProps &
   StyleguideSpecimenFields & {
     fields: {
       sample: Field<string>;
@@ -36,7 +35,7 @@ const StyleguideMultilingual = (props: StyleguideMultilingualProps): JSX.Element
         </Link>
         <br />
         <Link href="/styleguide" locale="da-DK">
-          <a>Show in da-DK</a>
+          <a>Show in Danish</a>
         </Link>
       </p>
 
@@ -45,4 +44,4 @@ const StyleguideMultilingual = (props: StyleguideMultilingualProps): JSX.Element
   );
 };
 
-export default withDatasourceCheck()<StyleguideMultilingualProps>(StyleguideMultilingual);
+export default StyleguideMultilingual;

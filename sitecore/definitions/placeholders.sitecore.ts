@@ -1,4 +1,4 @@
-import { Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
+import { Manifest } from '@sitecore-jss/sitecore-jss-manifest';
 
 /**
  * Adding placeholders is optional but allows setting a user-friendly display name. Placeholder Settings
@@ -12,10 +12,6 @@ export default function addPlaceholdersToManifest(manifest: Manifest): void {
     // you can optionally pass a GUID or unique (app-wide) string as an ID
     // this will inform the ID that is set when imported into Sitecore.
     // If the ID is not set, an ID is created based on the placeholder name.
-    {
-      name: 'jss-tabs',
-      displayName: 'Tabs',
-      id: 'tabs-placeholder',
-    }
+    { name: 'jss-tabs', displayName: 'Tabs', id: 'tabs-placeholder' }
   );
 }

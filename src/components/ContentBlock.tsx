@@ -1,7 +1,7 @@
-import { Text, RichText, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
-import { ComponentProps } from 'lib/component-props';
+import { Text, RichText, Field } from '@sitecore-jss/sitecore-jss-nextjs';
+import { StyleguideComponentProps } from 'lib/component-props';
 
-type ContentBlockProps = ComponentProps & {
+type ContentBlockProps = StyleguideComponentProps & {
   fields: {
     heading: Field<string>;
     content: Field<string>;
@@ -14,11 +14,11 @@ type ContentBlockProps = ComponentProps & {
  * JSS component that's useful.
  */
 const ContentBlock = ({ fields }: ContentBlockProps): JSX.Element => (
-  <div className="contentBlock">
-    <Text tag="h2" className="contentTitle" field={fields.heading} />
+  <>
+    <Text tag="h2" className="display-4" field={fields.heading} />
 
     <RichText className="contentDescription" field={fields.content} />
-  </div>
+  </>
 );
 
-export default withDatasourceCheck()<ContentBlockProps>(ContentBlock);
+export default ContentBlock;

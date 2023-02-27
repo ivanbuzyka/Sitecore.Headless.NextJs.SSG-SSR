@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { CommonFieldTypes, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
+import { CommonFieldTypes, Manifest } from '@sitecore-jss/sitecore-jss-manifest';
 
 /**
  * This is a standalone _base template_ that is inherited by components in the styleguide that need to
@@ -8,7 +8,7 @@ import { CommonFieldTypes, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools
  * Ensure that there is truly an inheritance relationship and not merely "they happen share some fields" before using inheritance.
  * @param {Manifest} manifest Manifest instance to add components to
  */
-export default function StyleguideExplanatoryComponent(manifest: Manifest): void {
+export default function (manifest: Manifest): void {
   manifest.addTemplate({
     name: 'Styleguide-Explanatory-Component',
     id: 'styleguide-explanatory-component-template',

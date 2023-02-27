@@ -1,13 +1,20 @@
 import Link from 'next/link';
 import { Text, Field, useSitecoreContext } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from './Styleguide-Specimen';
-import { ComponentProps } from 'lib/component-props';
-import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
+import {
+  StyleguideComponentProps,
+  StyleguideSitecoreContextValue,
+  StyleguideSpecimenFields,
+} from 'lib/component-props';
 
-type StyleguideRouteFieldsProps = ComponentProps & StyleguideSpecimenFields;
+type StyleguideRouteFieldsProps = StyleguideComponentProps & StyleguideSpecimenFields;
 
-type StyleguideRouteFields = {
-  pageTitle: Field<string>;
+type StyleguideRouteFieldsContext = StyleguideSitecoreContextValue & {
+  route: {
+    fields: {
+      pageTitle: Field<string>;
+    };
+  };
 };
 
 /**
@@ -16,14 +23,13 @@ type StyleguideRouteFields = {
  * to also get the route level field data and make it editable.
  */
 const StyleguideRouteFields = (props: StyleguideRouteFieldsProps): JSX.Element => {
-  const value = useSitecoreContext();
-  const fields = value.sitecoreContext.route?.fields as StyleguideRouteFields;
+  const { sitecoreContext } = useSitecoreContext<StyleguideRouteFieldsContext>();
 
   return (
     <StyleguideSpecimen {...props} e2eId="styleguide-route-fields">
       <p>
         Route level <code>pageTitle</code> field:{' '}
-        {value.sitecoreContext.route && <Text field={fields.pageTitle} />}
+        {sitecoreContext.route && <Text field={sitecoreContext.route.fields.pageTitle} />}
       </p>
       <p>
         <Link href="/styleguide/custom-route-type">

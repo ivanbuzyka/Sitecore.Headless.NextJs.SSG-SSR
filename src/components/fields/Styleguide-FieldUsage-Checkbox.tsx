@@ -1,9 +1,8 @@
 import { Field, getFieldValue } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from 'components/styleguide/Styleguide-Specimen';
-import { ComponentProps } from 'lib/component-props';
-import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
+import { StyleguideComponentProps, StyleguideSpecimenFields } from 'lib/component-props';
 
-type StyleguideFieldUsageCheckboxProps = ComponentProps &
+type StyleguideFieldUsageCheckboxProps = StyleguideComponentProps &
   StyleguideSpecimenFields & {
     fields: {
       checkbox: Field<boolean>;

@@ -1,9 +1,8 @@
-import { Field, Text, Item, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Field, Text, Item } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from 'components/styleguide/Styleguide-Specimen';
-import { ComponentProps } from 'lib/component-props';
-import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
+import { StyleguideComponentProps, StyleguideSpecimenFields } from 'lib/component-props';
 
-type StyleguideFieldUsageContentListProps = ComponentProps &
+type StyleguideFieldUsageContentListProps = StyleguideComponentProps &
   StyleguideSpecimenFields & {
     fields: {
       sharedContentList: Item[];
@@ -53,6 +52,4 @@ const StyleguideFieldUsageContentList = (
   );
 };
 
-export default withDatasourceCheck()<StyleguideFieldUsageContentListProps>(
-  StyleguideFieldUsageContentList
-);
+export default StyleguideFieldUsageContentList;
