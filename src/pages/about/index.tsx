@@ -43,7 +43,7 @@ const SitecorePage = ({ notFound, layoutData, componentProps }: SitecorePageProp
 
 // This function gets called at request time on server-side.
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const props = await sitecorePagePropsFactory.create(context);
+  const props = await sitecorePagePropsFactory.create(context, context.resolvedUrl);
 
   // Returns custom 404 page with a status code of 404 when notFound: true
   // Note we can't simply return props.notFound due to an issue in Next.js (https://github.com/vercel/next.js/issues/22472)
