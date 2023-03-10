@@ -11,9 +11,9 @@ on:
 
 env:
  FETCH_WITH: GraphQL
- GRAPH_QL_ENDPOINT: http://ibu-bay-headless1-ip.westeurope.cloudapp.azure.com/sitecore/api/graph/edge
- PUBLIC_URL: http://ibunode316.azurewebsites.net
- SITECORE_API_HOST: http://ibu-bay-headless1-ip.westeurope.cloudapp.azure.com
+ GRAPH_QL_ENDPOINT: https://ibu-bay-headless1-ip.westeurope.cloudapp.azure.com/sitecore/api/graph/edge
+ PUBLIC_URL: https://ibunode316.azurewebsites.net
+ SITECORE_API_HOST: https://ibu-bay-headless1-ip.westeurope.cloudapp.azure.com
  SITECORE_API_KEY: 41A66F62-3567-4A52-AEFA-8501A050ED98
 
 jobs:
