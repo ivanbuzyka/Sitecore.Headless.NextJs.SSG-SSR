@@ -1,13 +1,14 @@
-import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-manifest';
+import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-dev-tools';
 
 /**
  * Adds the Styleguide-FieldUsage-Checkbox component to the disconnected manifest.
  * This function is invoked by convention (*.sitecore.js) when 'jss manifest' is run.
  * @param {Manifest} manifest Manifest instance to add components to
  */
-export default function (manifest: Manifest): void {
+export default function StyleguideFieldUsageCheckbox(manifest: Manifest): void {
   manifest.addComponent({
     name: 'Styleguide-FieldUsage-Checkbox',
+    templateName: 'Styleguide-FieldUsage-Checkbox',
     icon: SitecoreIcon.CheckboxSelected,
     fields: [
       { name: 'checkbox', type: CommonFieldTypes.Checkbox },
@@ -15,6 +16,8 @@ export default function (manifest: Manifest): void {
     ],
     // inherit fields from another template (../templates/Styleguide-Explanatory-Component)
     // inheritance adds fields defined on the base template(s) implicitly to this component
-    inherits: ['styleguide-explanatory-component-template'],
+    inherits: [
+      'styleguide-explanatory-component-template',
+    ],
   });
 }

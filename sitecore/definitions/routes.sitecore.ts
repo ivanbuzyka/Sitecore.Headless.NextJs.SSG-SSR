@@ -1,6 +1,11 @@
 import path from 'path';
-import { Manifest, RouteDefinition, CommonFieldTypes } from '@sitecore-jss/sitecore-jss-manifest';
-import { mergeFs, MergeFsResult } from '@sitecore-jss/sitecore-jss-dev-tools';
+import {
+  Manifest,
+  RouteDefinition,
+  CommonFieldTypes,
+  mergeFs,
+  MergeFsResult,
+} from '@sitecore-jss/sitecore-jss-dev-tools';
 
 /**
  * Collects the disconnected routes defined in data/routes into the manifest.
@@ -20,6 +25,7 @@ export default function addRoutesToManifest(manifest: Manifest): Promise<void> {
 
   manifest.setDefaultRouteType({
     name: 'App Route',
+    displayName: 'App Route',
     fields: [
       {
         name: 'pageTitle',

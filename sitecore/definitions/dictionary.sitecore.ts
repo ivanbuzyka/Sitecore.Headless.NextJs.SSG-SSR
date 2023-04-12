@@ -1,5 +1,4 @@
-import { Manifest } from '@sitecore-jss/sitecore-jss-manifest';
-import { mergeFs, MergeFsResult } from '@sitecore-jss/sitecore-jss-dev-tools';
+import { Manifest, mergeFs, MergeFsResult } from '@sitecore-jss/sitecore-jss-dev-tools';
 import fs from 'fs';
 
 /**
@@ -9,7 +8,9 @@ import fs from 'fs';
  * @param {Manifest} manifest
  * @returns {Promise}
  */
-export default function addDictionaryToManifest(manifest: Manifest): Promise<void> | undefined {
+export default function addDictionaryToManifest(
+  manifest: Manifest
+): Promise<void> | void | undefined {
   const startPath = './data/dictionary'; // relative to process invocation (i.e. where package.json lives)
 
   if (!fs.existsSync(startPath)) return;
