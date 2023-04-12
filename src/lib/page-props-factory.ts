@@ -18,12 +18,15 @@ import { config as packageConfig } from '../../package.json';
  * Extract normalized Sitecore item path from query
  * @param {ParsedUrlQuery | undefined} params
  */
+// CUSTOMIZATION: custom changes to resolve rootPath
 function extractPath(params: ParsedUrlQuery | undefined, rootPath?: string): string {
   if (params === undefined) {
+    // CUSTOMIZATION: custom changes to resolve rootPath
     return rootPath ?? '/';
   }
   let path = Array.isArray(params.path) ? params.path.join('/') : params.path ?? '/';
 
+  // CUSTOMIZATION: custom changes to resolve rootPath
   if (rootPath) {
     path = rootPath + (rootPath.endsWith('/') ? '' : '/') + path;
   }
@@ -64,6 +67,7 @@ export class SitecorePagePropsFactory {
    */
   public async create(
     context: GetServerSidePropsContext | GetStaticPropsContext,
+    // CUSTOMIZATION: custom changes to resolve rootPath
     rootPath?: string
   ): Promise<SitecorePageProps> {
     let locale: string,
@@ -91,6 +95,7 @@ export class SitecorePagePropsFactory {
        * Normal mode
        */
       // Get normalized Sitecore item path
+      // CUSTOMIZATION: custom changes to resolve rootPath
       const path = extractPath(context.params, rootPath);
 
       // Use context locale if Next.js i18n is configured, otherwise use language defined in package.json
