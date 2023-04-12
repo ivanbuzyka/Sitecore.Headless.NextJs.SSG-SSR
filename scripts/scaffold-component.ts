@@ -21,6 +21,7 @@ import generateComponentSrc from './templates/component-src';
 import generateComponentManifest from './templates/component-manifest';
 
 const componentManifestDefinitionsPath = 'sitecore/definitions/components';
+
 const componentRootPath = 'src/components';
 
 // Matches component names that start with a capital letter, and contain only letters, number,
@@ -64,7 +65,6 @@ if (fs.existsSync(componentManifestDefinitionsPath)) {
 did not exist. This is normal for Sitecore-first workflow.`)
   );
 }
-
 console.log(
   chalk.green(`
 Scaffolding of ${componentName} complete.
