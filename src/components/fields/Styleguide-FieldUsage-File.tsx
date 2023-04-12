@@ -1,8 +1,9 @@
-import { File, FileField } from '@sitecore-jss/sitecore-jss-nextjs';
+import { File, FileField, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from 'components/styleguide/Styleguide-Specimen';
-import { StyleguideComponentProps, StyleguideSpecimenFields } from 'lib/component-props';
+import { ComponentProps } from 'lib/component-props';
+import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
 
-type StyleguideFieldUsageFileProps = StyleguideComponentProps &
+type StyleguideFieldUsageFileProps = ComponentProps &
   StyleguideSpecimenFields & {
     fields: {
       file: FileField;
@@ -26,4 +27,4 @@ const StyleguideFieldUsageFile = (props: StyleguideFieldUsageFileProps): JSX.Ele
   </StyleguideSpecimen>
 );
 
-export default StyleguideFieldUsageFile;
+export default withDatasourceCheck()<StyleguideFieldUsageFileProps>(StyleguideFieldUsageFile);

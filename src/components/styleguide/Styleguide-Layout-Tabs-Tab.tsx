@@ -1,7 +1,13 @@
-import { Text, RichText, useSitecoreContext, Field } from '@sitecore-jss/sitecore-jss-nextjs';
-import { StyleguideComponentProps, StyleguideSitecoreContextValue } from 'lib/component-props';
+import {
+  Text,
+  RichText,
+  Field,
+  useSitecoreContext,
+  withDatasourceCheck,
+} from '@sitecore-jss/sitecore-jss-nextjs';
+import { ComponentProps } from 'lib/component-props';
 
-type StyleguideLayoutTabsTabProps = StyleguideComponentProps & {
+type StyleguideLayoutTabsTabProps = ComponentProps & {
   fields: {
     content: Field<string>;
     title: Field<string>;
@@ -14,7 +20,7 @@ type StyleguideLayoutTabsTabProps = StyleguideComponentProps & {
  * author experience.
  */
 const StyleguideLayoutTabsTab = (props: StyleguideLayoutTabsTabProps): JSX.Element => {
-  const { sitecoreContext } = useSitecoreContext<StyleguideSitecoreContextValue>();
+  const { sitecoreContext } = useSitecoreContext();
 
   return (
     <div data-e2e-class="styleguide-layout-tabs-tab">
@@ -32,4 +38,4 @@ const StyleguideLayoutTabsTab = (props: StyleguideLayoutTabsTabProps): JSX.Eleme
   );
 };
 
-export default StyleguideLayoutTabsTab;
+export default withDatasourceCheck()<StyleguideLayoutTabsTabProps>(StyleguideLayoutTabsTab);

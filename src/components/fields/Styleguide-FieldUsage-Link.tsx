@@ -1,8 +1,9 @@
-import { Link, LinkField } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Link, LinkField, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from 'components/styleguide/Styleguide-Specimen';
-import { StyleguideComponentProps, StyleguideSpecimenFields } from 'lib/component-props';
+import { ComponentProps } from 'lib/component-props';
+import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
 
-type StyleguideFieldUsageLinkProps = StyleguideComponentProps &
+type StyleguideFieldUsageLinkProps = ComponentProps &
   StyleguideSpecimenFields & {
     fields: {
       externalLink: LinkField;
@@ -36,10 +37,10 @@ const StyleguideFieldUsageLink = (props: StyleguideFieldUsageLinkProps): JSX.Ele
     <Link
       field={props.fields.externalLink}
       showLinkTextWithChildrenPresent={true}
-      className="font-weight-bold"
+      className="fw-bold"
       data-otherattributes="pass-through-to-anchor-tag"
     />
   </StyleguideSpecimen>
 );
 
-export default StyleguideFieldUsageLink;
+export default withDatasourceCheck()<StyleguideFieldUsageLinkProps>(StyleguideFieldUsageLink);

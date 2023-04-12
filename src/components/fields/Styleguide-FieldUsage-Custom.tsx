@@ -1,8 +1,9 @@
-import { Field, Text } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Field, Text, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
 import StyleguideSpecimen from 'components/styleguide/Styleguide-Specimen';
-import { StyleguideComponentProps, StyleguideSpecimenFields } from 'lib/component-props';
+import { ComponentProps } from 'lib/component-props';
+import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
 
-type StyleguideFieldUsageCustomProps = StyleguideComponentProps &
+type StyleguideFieldUsageCustomProps = ComponentProps &
   StyleguideSpecimenFields & {
     fields: {
       customIntField: Field<string>;
@@ -21,4 +22,4 @@ const StyleguideFieldUsageCustom = (props: StyleguideFieldUsageCustomProps): JSX
   </StyleguideSpecimen>
 );
 
-export default StyleguideFieldUsageCustom;
+export default withDatasourceCheck()<StyleguideFieldUsageCustomProps>(StyleguideFieldUsageCustom);

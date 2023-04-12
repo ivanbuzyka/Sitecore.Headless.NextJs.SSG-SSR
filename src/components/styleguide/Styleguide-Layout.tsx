@@ -5,14 +5,14 @@ import {
   ComponentRendering,
   HtmlElementRendering,
 } from '@sitecore-jss/sitecore-jss-nextjs';
-import { StyleguideComponentProps } from 'lib/component-props';
+import { ComponentProps } from 'lib/component-props';
 
 /**
  * The main layout (columns) of the styleguide.
  * Navigation is automatically generated based on the components added to the layout,
  * and does not need to be manually maintained.
  */
-const StyleguideLayout = (props: StyleguideComponentProps): JSX.Element => {
+const StyleguideLayout = (props: ComponentProps): JSX.Element => {
   const getRendering = (section: ComponentRendering | HtmlElementRendering) =>
     section as ComponentRendering;
 
@@ -37,7 +37,7 @@ const StyleguideLayout = (props: StyleguideComponentProps): JSX.Element => {
     }))
     .map((section) => (
       <nav key={section.heading} className="nav flex-column pt-2">
-        <a href={`#${section.id}`} className="nav-item font-weight-bold">
+        <a href={`#${section.id}`} className="nav-item fw-bold">
           {section.heading}
         </a>
         {section.children && (

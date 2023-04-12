@@ -1,7 +1,8 @@
-import { Text, Link } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Text, Link, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { ComponentProps } from 'lib/component-props';
 import NextLink from 'next/link';
 
-interface DataSource {
+type DataSource = {
   sample1: {
     jsonValue: {
       value: string;
@@ -28,9 +29,9 @@ interface DataSource {
   };
   name: string;
   id: string;
-}
+};
 
-interface Item {
+type Item = {
   id: string;
   url: {
     path: string;
@@ -41,13 +42,13 @@ interface Item {
       value: string;
     };
   };
-}
+};
 
-interface ItemSearchResults {
+type ItemSearchResults = {
   results: Item[];
-}
+};
 
-interface GraphQlIntegratedDemoProps {
+type GraphQlIntegratedDemoProps = ComponentProps & {
   fields: {
     data: {
       datasource: DataSource;
@@ -60,7 +61,7 @@ interface GraphQlIntegratedDemoProps {
       };
     };
   };
-}
+};
 
 const GraphQLIntegratedDemo = (props: GraphQlIntegratedDemoProps): JSX.Element => {
   // Query results in integrated GraphQL replace the normal `fields` data
@@ -113,9 +114,7 @@ const GraphQLIntegratedDemo = (props: GraphQlIntegratedDemoProps): JSX.Element =
           <ul>
             {contextItem.children.results.map((child: Item) => (
               <li key={child.id}>
-                <NextLink href={child.url.path}>
-                  <a>{child.pageTitle.value}</a>
-                </NextLink>
+                <NextLink href={child.url.path}>{child.pageTitle.value}</NextLink>
                 &nbsp; (editable title too! <Text field={child.pageTitle.jsonValue} />)
               </li>
             ))}
@@ -126,4 +125,4 @@ const GraphQLIntegratedDemo = (props: GraphQlIntegratedDemoProps): JSX.Element =
   );
 };
 
-export default GraphQLIntegratedDemo;
+export default withDatasourceCheck()<GraphQlIntegratedDemoProps>(GraphQLIntegratedDemo);

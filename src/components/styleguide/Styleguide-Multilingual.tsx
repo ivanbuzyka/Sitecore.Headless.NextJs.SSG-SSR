@@ -1,10 +1,11 @@
-import { Text, Field } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Text, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
 import Link from 'next/link';
 import { useI18n } from 'next-localization';
 import StyleguideSpecimen from './Styleguide-Specimen';
-import { StyleguideComponentWithContextProps, StyleguideSpecimenFields } from 'lib/component-props';
+import { ComponentWithContextProps } from 'lib/component-props';
+import { StyleguideSpecimenFields } from 'lib/component-props/styleguide';
 
-type StyleguideMultilingualProps = StyleguideComponentWithContextProps &
+type StyleguideMultilingualProps = ComponentWithContextProps &
   StyleguideSpecimenFields & {
     fields: {
       sample: Field<string>;
@@ -31,11 +32,11 @@ const StyleguideMultilingual = (props: StyleguideMultilingualProps): JSX.Element
       <p>
         {/* In case if href already includes locale: https://nextjs.org/docs/advanced-features/i18n-routing#transition-between-locales */}
         <Link href="/en/styleguide" locale={false}>
-          <a>Show in English</a>
+          Show in English
         </Link>
         <br />
         <Link href="/styleguide" locale="da-DK">
-          <a>Show in Danish</a>
+          Show in da-DK
         </Link>
       </p>
 
@@ -44,4 +45,4 @@ const StyleguideMultilingual = (props: StyleguideMultilingualProps): JSX.Element
   );
 };
 
-export default StyleguideMultilingual;
+export default withDatasourceCheck()<StyleguideMultilingualProps>(StyleguideMultilingual);
