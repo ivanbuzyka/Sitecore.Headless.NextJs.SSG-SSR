@@ -1,7 +1,7 @@
 {
   "name": "sc-nextjs-ssg",
   "description": "Application utilizing Sitecore JavaScript Services and Next.js",
-  "version": "18.0.2",
+  "version": "21.1.0",
   "private": true,
   "config": {
     "appName": "sc-nextjs-ssg",
@@ -10,12 +10,15 @@
     ],
     "sitecoreConfigPath": "/App_Config/Include/zzz",
     "graphQLEndpointPath": "/sitecore/api/graph/edge",
-    "language": "en"
+    "language": "en",
+    "templates": [
+      "nextjs",
+      "nextjs-styleguide"
+    ]
   },
   "engines": {
-    "node": ">=8.1",
-    "npm": ">=5.6.0",
-    "yarn": "yarn is not supported, please use npm"
+    "node": ">=12",
+    "npm": ">=6"
   },
   "author": {
     "name": "Sitecore Corporation",
@@ -76,11 +79,11 @@
     "yaml-loader": "^0.8.0"
   },
   "scripts": {
-    "jss": "jss",
-    "lint": "eslint ./src/**/*.tsx ./src/**/*.ts ./sitecore/definitions/**/*.ts ./scripts/**/*.ts ./data/**/*.yml",
     "bootstrap": "ts-node --project tsconfig.scripts.json scripts/bootstrap.ts && graphql-let",
     "build": "npm-run-all --serial bootstrap next:build",
     "graphql:update": "ts-node --project tsconfig.scripts.json ./scripts/fetch-graphql-introspection-data.ts",
+    "jss": "jss",
+    "lint": "eslint ./src/**/*.tsx ./src/**/*.ts ./scripts/**/*.ts",
     "next:build": "next build",
     "next:dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "next:start": "next start",
