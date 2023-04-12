@@ -1,3 +1,6 @@
-# Sitecore JSS Next.js Starter Application
+# Sitecore JSS Next.js Sample Application
 
-Consult the primary JSS documentation at https://jss.sitecore.com for the latest documentation on JSS.
+
+[Documentation (Experience Platform)](https://doc.sitecore.com/xp/en/developers/hd/210/sitecore-headless-development/sitecore-javascript-rendering-sdk--jss--for-next-js.html)
+
+[Documentation (XM Cloud)](https://doc.sitecore.com/xmc/en/developers/xm-cloud/sitecore-javascript-rendering-sdk--jss--for-next-js.html)
