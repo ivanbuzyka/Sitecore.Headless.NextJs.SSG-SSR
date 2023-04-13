@@ -1,41 +1,49 @@
 import { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import NotFound from 'src/NotFound';
+import Layout from 'src/Layout';
 import {
+  RenderingType,
   SitecoreContext,
   ComponentPropsContext,
-  handleExperienceEditorFastRefresh,
+  handleEditorFastRefresh,
+  EditingComponentPlaceholder,
 } from '@sitecore-jss/sitecore-jss-nextjs';
-import Layout from 'src/Layout';
 import { SitecorePageProps } from 'lib/page-props';
 import { sitecorePagePropsFactory } from 'lib/page-props-factory';
-import { componentFactory } from 'temp/componentFactory';
-import { StyleguideSitecoreContextValue } from 'lib/component-props';
+// different componentFactory method will be used based on whether page is being edited
+import { componentFactory, editingComponentFactory } from 'temp/componentFactory';
 
-const SitecorePage = ({ notFound, layoutData, componentProps }: SitecorePageProps): JSX.Element => {
+const SitecorePage = ({ notFound, componentProps, layoutData }: SitecorePageProps): JSX.Element => {
   useEffect(() => {
-    // Since Experience Editor does not support Fast Refresh need to refresh EE chromes after Fast Refresh finished
-    handleExperienceEditorFastRefresh();
+    // Since Sitecore editors do not support Fast Refresh, need to refresh editor chromes after Fast Refresh finished
+    handleEditorFastRefresh();
   }, []);
 
-  if (notFound || !layoutData?.sitecore?.route) {
+  if (notFound || !layoutData.sitecore.route) {
     // Shouldn't hit this (as long as 'notFound' is being returned below), but just to be safe
     return <NotFound />;
   }
 
-  const context: StyleguideSitecoreContextValue = {
-    route: layoutData.sitecore.route,
-    itemId: layoutData.sitecore.route?.itemId,
-    ...layoutData.sitecore.context,
-  };
+  const isEditing = layoutData.sitecore.context.pageEditing;
+  const isComponentRendering =
+    layoutData.sitecore.context.renderingType === RenderingType.Component;
 
   return (
     <ComponentPropsContext value={componentProps}>
-      <SitecoreContext<StyleguideSitecoreContextValue>
-        componentFactory={componentFactory}
-        context={context}
+      <SitecoreContext
+        componentFactory={isEditing ? editingComponentFactory : componentFactory}
+        layoutData={layoutData}
       >
-        <Layout context={context} />
+        {/*
+          Sitecore Pages supports component rendering to avoid refreshing the entire page during component editing.
+          If you are using Experience Editor only, this logic can be removed, Layout can be left.
+        */}
+        {isComponentRendering ? (
+          <EditingComponentPlaceholder rendering={layoutData.sitecore.route} />
+        ) : (
+          <Layout layoutData={layoutData} />
+        )}
       </SitecoreContext>
     </ComponentPropsContext>
   );
@@ -43,15 +51,18 @@ const SitecorePage = ({ notFound, layoutData, componentProps }: SitecorePageProp
 
 // This function gets called at request time on server-side.
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const props = await sitecorePagePropsFactory.create(context, context.resolvedUrl);
+  const props = await sitecorePagePropsFactory.create(context);
 
-  // Returns custom 404 page with a status code of 404 when notFound: true
-  // Note we can't simply return props.notFound due to an issue in Next.js (https://github.com/vercel/next.js/issues/22472)
-  const notFound = props.notFound ? { notFound: true } : {};
+  // Check if we have a redirect (e.g. custom error page)
+  if (props.redirect) {
+    return {
+      redirect: props.redirect,
+    };
+  }
 
   return {
     props,
-    ...notFound,
+    notFound: props.notFound, // Returns custom 404 page with a status code of 404 when true
   };
 };
 
