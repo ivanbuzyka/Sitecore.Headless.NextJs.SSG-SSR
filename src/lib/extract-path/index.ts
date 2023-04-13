@@ -13,11 +13,17 @@ export class PathExtractor {
    * Extract normalized Sitecore item path
    * @param {ParsedUrlQuery} [params]
    */
-  public extract(params: ParsedUrlQuery | undefined): string {
+  public extract(params: ParsedUrlQuery | undefined, rootPath?: string): string {
     if (params === undefined) {
-      return '/';
+      return rootPath ?? '/';
     }
     let path = Array.isArray(params.path) ? params.path.join('/') : params.path ?? '/';
+
+    //Add root path
+    if (rootPath) {
+      const rootPathStrippedQueryString = rootPath.split('?')[0];
+      path = rootPathStrippedQueryString + (rootPathStrippedQueryString.endsWith('/') ? '' : '/') + path;
+    }
 
     // Ensure leading '/'
     if (!path.startsWith('/')) {

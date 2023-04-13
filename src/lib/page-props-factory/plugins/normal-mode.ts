@@ -17,11 +17,11 @@ class NormalModePlugin implements Plugin {
     this.layoutServices = new Map<string, LayoutService>();
   }
 
-  async exec(props: SitecorePageProps, context: GetServerSidePropsContext | GetStaticPropsContext) {
+  async exec(props: SitecorePageProps, context: GetServerSidePropsContext | GetStaticPropsContext, rootPath?: string) {
     if (context.preview) return props;
 
     // Get normalized Sitecore item path
-    const path = pathExtractor.extract(context.params);
+    const path = pathExtractor.extract(context.params, rootPath);
 
     // Use context locale if Next.js i18n is configured, otherwise use default site language
     props.locale = context.locale ?? props.site.language;
