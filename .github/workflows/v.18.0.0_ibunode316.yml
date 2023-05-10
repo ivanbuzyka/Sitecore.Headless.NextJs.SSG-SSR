@@ -8,7 +8,7 @@ on:
 
 env:
  FETCH_WITH: GraphQL
- PUBLIC_URL: https://${{env.WEB_APP_NAME}}.azurewebsites.net
+ PUBLIC_URL: ${{env.WEB_APP_URL}}
  SITECORE_API_HOST: ${{env.SITECORE_API_HOST}}
  SITECORE_API_KEY: ${{secrets.SITECORE_API_KEY}}
 
