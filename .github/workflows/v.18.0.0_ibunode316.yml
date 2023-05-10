@@ -8,8 +8,8 @@ on:
 
 env:
  FETCH_WITH: GraphQL
- PUBLIC_URL: ${{env.WEB_APP_URL}}
- SITECORE_API_HOST: ${{env.SITECORE_API_HOST}}
+ PUBLIC_URL: ${{WEB_APP_URL}}
+ SITECORE_API_HOST: ${{SITECORE_API_HOST}}
  SITECORE_API_KEY: ${{secrets.SITECORE_API_KEY}}
 
 jobs:
@@ -57,7 +57,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{env.WEB_APP_NAME}}
+          app-name: ${{WEB_APP_NAME}}
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: ./next.zip
