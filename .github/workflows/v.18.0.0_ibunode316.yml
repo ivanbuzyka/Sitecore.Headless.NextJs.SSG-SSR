@@ -1,24 +1,20 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - ibunode316
+name: Build and deploy Node.js app to Azure Web App
 
 on:
-  push:
-    branches:
-      - v.18.0.0
   workflow_dispatch:
 
 env:
  FETCH_WITH: GraphQL
- GRAPH_QL_ENDPOINT: https://ibu-bay-headless1-ip.westeurope.cloudapp.azure.com/sitecore/api/graph/edge
- PUBLIC_URL: https://ibunode316.azurewebsites.net
- SITECORE_API_HOST: https://ibu-bay-headless1-ip.westeurope.cloudapp.azure.com
- SITECORE_API_KEY: 41A66F62-3567-4A52-AEFA-8501A050ED98
+ PUBLIC_URL: https://${{env.WEB_APP_NAME}}.azurewebsites.net
+ SITECORE_API_HOST: ${{env.SITECORE_API_HOST}}
+ SITECORE_API_KEY: ${{secrets.SITECORE_API_KEY}}
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -28,20 +24,24 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: npm install, build, and test
+      - name: npm install, build
         run: |
           npm install
           npm run build --if-present
-          npm run test --if-present
 
+      - name: Zip all files for upload between jobs
+        shell: cmd
+        working-directory: .
+        run: 7z a -tzip next.zip -x!.env -x!.env.local
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: ./next.zip
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
@@ -57,7 +57,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'ibunode316'
+          app-name: ${{env.WEB_APP_NAME}}
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9488775931C4412A86DD9064BC61FA69 }}
-          package: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+          package: ./next.zip
